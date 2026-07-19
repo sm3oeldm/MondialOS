@@ -147,7 +147,7 @@ export default function ChatPage() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && send()}
           placeholder="Ask MondialOS…"
-          className="flex-1 px-4 py-3 rounded-xl bg-ink-700 border border-white/10 outline-none focus:border-brand"
+          className="flex-1 px-4 py-3 rounded-xl bg-white border border-white/10 outline-none focus:border-brand text-black placeholder:text-black/40"
         />
         <button
           onClick={send}

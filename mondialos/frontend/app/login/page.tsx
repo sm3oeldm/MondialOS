@@ -52,7 +52,7 @@ export default function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@fan.com"
-            className="w-full px-4 py-3 rounded-xl bg-ink-700 border border-white/10 outline-none focus:border-brand"
+            className="w-full px-4 py-3 rounded-xl bg-white border border-white/10 outline-none focus:border-brand text-black placeholder:text-black/40"
           />
           <input
             type="password"
@@ -60,7 +60,7 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="password"
-            className="w-full px-4 py-3 rounded-xl bg-ink-700 border border-white/10 outline-none focus:border-brand"
+            className="w-full px-4 py-3 rounded-xl bg-white border border-white/10 outline-none focus:border-brand text-black placeholder:text-black/40"
           />
           <button
             disabled={loading}
