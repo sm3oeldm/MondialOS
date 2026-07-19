@@ -134,7 +134,7 @@
           <option value="train">🚆 Train</option><option value="flight">✈️ Flight</option>
           <option value="walk">🚶 Walk</option>
         </select>
-        <button onclick="calcCarbon()" class="px-5 py-2 rounded-lg bg-brand text-black font-semibold">Calculate</button>
+        <button onclick="calcCarbon()" class="px-5 py-2 rounded-lg bg-brand text-white font-semibold">Calculate</button>
       </div>
       <div id="carbonOut" class="text-sm"></div>
     </div>
@@ -159,7 +159,7 @@
   <section id="view-memes" class="view">
     <div class="flex items-center justify-between mb-1">
       <h1 class="font-display text-3xl">World Cup Memes 🤣</h1>
-      <button onclick="loadMemes()" class="px-4 py-2 rounded-lg bg-brand text-black font-semibold text-sm">🔄 Refresh</button>
+      <button onclick="loadMemes()" class="px-4 py-2 rounded-lg bg-brand text-white font-semibold text-sm">🔄 Refresh</button>
     </div>
     <p class="text-white/50 text-sm mb-6">Pulled live from the meme API. Share your favorites.</p>
     <div id="memeGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-4"></div>
@@ -220,6 +220,7 @@ function updateModeLabel(){ document.getElementById("chatMode").textContent = "M
 
 // ===== CHAT =====
 async function callMistral(system, userMsgs){
+  const sys = system + "\n\nReply as clean plain text only. Do NOT use markdown: no asterisks, no backticks, no hash headings, no blockquote '>' markers. Use normal punctuation and bullet points with '•' if needed.";
   const res = await fetch("https://api.mistral.ai/v1/chat/completions",{
     method:"POST",
     headers:{Authorization:`Bearer ${CONFIG.mistralKey}`,"Content-Type":"application/json"},
@@ -229,6 +230,19 @@ async function callMistral(system, userMsgs){
   if(!res.ok) throw new Error("Mistral "+res.status);
   return (await res.json()).choices[0].message.content;
 }
+// Strip markdown decorations so the bubble shows clean plain text (no stray ** or ").
+function stripMd(s){
+  return (s||"")
+    .replace(/\*\*(.*?)\*\*/g,"$1")   // **bold**
+    .replace(/\*(.*?)\*/g,"$1")       // *italic*
+    .replace(/__(.*?)__/g,"$1")       // __bold__
+    .replace(/_(.*?)_/g,"$1")         // _italic_
+    .replace(/^\s*>\s?/gm,"")         // blockquote markers
+    .replace(/^\s*[-*+]\s+/gm,"• ")   // list bullets -> •
+    .replace(/`([^`]*)`/g,"$1")       // inline code
+    .replace(/^#+\s*/gm,"")           // headings
+    .trim();
+}
 function addBubble(role, content, agent){
   const box=document.getElementById("chatScroll");
   const wrap=document.createElement("div");
@@ -237,7 +251,7 @@ function addBubble(role, content, agent){
   inner.className = (role==="user"?"bg-brand text-black":"glass agent-bubble")+" max-w-[85%] rounded-2xl px-4 py-3 text-sm";
   if(role==="agent" && agent){ inner.style.setProperty("--c",agent.color);
     inner.innerHTML=`<div class="text-xs font-semibold mb-1" style="color:${agent.color}">${agent.icon} ${agent.name}</div>`+`<div class="whitespace-pre-wrap leading-relaxed"></div>`;
-    inner.querySelector("div:last-child").textContent=content;
+    inner.querySelector("div:last-child").textContent=stripMd(content);
   } else { inner.textContent=content; }
   wrap.appendChild(inner); box.appendChild(wrap); box.scrollTop=box.scrollHeight;
 }
@@ -250,7 +264,7 @@ async function sendChat(){
   thinking.innerHTML=`<div class="glass rounded-2xl px-4 py-3 text-sm text-white/50 thinking">${agent.icon} ${agent.name} is thinking</div>`;
   box.appendChild(thinking); box.scrollTop=box.scrollHeight;
   try{
-    const msgs=[...history.slice(-6).map(m=>({role:m.role,content:m.content}))];
+    const msgs=[...history.slice(-6).map(m=>({role:m.role==="agent"?"assistant":m.role,content:m.content}))];
     const reply=await callMistral(agent.sys, msgs);
     thinking.remove(); addBubble("agent",reply,agent); history.push({role:"agent",content:reply});
   }catch(e){ thinking.remove(); addBubble("agent","⚠️ Mistral call failed: "+e.message,{icon:"⚠️",name:"System",color:"#ef4444"}); }

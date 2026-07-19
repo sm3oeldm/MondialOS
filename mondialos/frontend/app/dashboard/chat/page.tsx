@@ -14,6 +14,20 @@ const FALLBACK_AGENTS: AgentInfo[] = [
   { id: "sustain", name: "Sustainability", icon: "🌱", color: "#10b981", tagline: "Greener travel, lower footprint" },
 ];
 
+// Strip markdown decorations so the bubble shows clean plain text (no stray ** or ").
+function stripMd(s: string): string {
+  return (s || "")
+    .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/\*(.*?)\*/g, "$1")
+    .replace(/__(.*?)__/g, "$1")
+    .replace(/_(.*?)_/g, "$1")
+    .replace(/^\s*>\s?/gm, "")
+    .replace(/^\s*[-*+]\s+/gm, "• ")
+    .replace(/`([^`]*)`/g, "$1")
+    .replace(/^#+\s*/gm, "")
+    .trim();
+}
+
 export default function ChatPage() {
   const { agents, activeAgent, messages, loading, setAgents, setActiveAgent, addMessage, setLoading } =
     useChatStore();
@@ -42,7 +56,7 @@ export default function ChatPage() {
       const res = await sendChat(
         text,
         activeAgent,
-        messages.map((m) => ({ role: m.role, content: m.content }))
+        messages.map((m) => ({ role: m.role === "agent" ? "assistant" : m.role, content: m.content }))
       );
       const agentInfo: AgentInfo = {
         id: res.agent,
@@ -131,7 +145,7 @@ export default function ChatPage() {
                   {m.agent.icon} {m.agent.name}
                 </div>
               )}
-              <div className="whitespace-pre-wrap leading-relaxed">{m.content}</div>
+              <div className="whitespace-pre-wrap leading-relaxed">{m.role === "agent" ? stripMd(m.content) : m.content}</div>
               {m.sources && m.sources.length > 0 && (
                 <div className="mt-2 text-[10px] text-white/40">
                   sources: {m.sources.join(", ")}
