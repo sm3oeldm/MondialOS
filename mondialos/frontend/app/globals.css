@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Archivo Black", system-ui, sans-serif;
+}
+
+html,
+body {
+  background: #0a0f0d;
+  color: #e7efe9;
+}
+
+/* Leaflet dark tweaks */
+.leaflet-container {
+  background: #0f1714;
+  border-radius: 1rem;
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #16211c;
+  color: #e7efe9;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f2d27;
+  border-radius: 8px;
+}
+
+.glass {
+  background: rgba(22, 33, 28, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
