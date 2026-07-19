@@ -5,6 +5,15 @@ import { motion } from "framer-motion";
 import { fetchAgents, sendChat, type AgentInfo, type ChatMessage } from "@/lib/api";
 import { useChatStore } from "@/lib/store";
 
+// Built-in agent list so the chat works even when the backend is offline.
+const FALLBACK_AGENTS: AgentInfo[] = [
+  { id: "fan", name: "Fan Agent", icon: "🎟️", color: "#22c55e", tagline: "Personalized itineraries & recommendations" },
+  { id: "stadium", name: "Stadium Agent", icon: "🏟️", color: "#3b82f6", tagline: "Every gate, restroom & checkpoint" },
+  { id: "match", name: "Match Intelligence", icon: "⚽", color: "#f59e0b", tagline: "Tactics & insights, simply explained" },
+  { id: "crowd", name: "Crowd Intelligence", icon: "📊", color: "#ef4444", tagline: "Beat the congestion" },
+  { id: "sustain", name: "Sustainability", icon: "🌱", color: "#10b981", tagline: "Greener travel, lower footprint" },
+];
+
 export default function ChatPage() {
   const { agents, activeAgent, messages, loading, setAgents, setActiveAgent, addMessage, setLoading } =
     useChatStore();
@@ -12,7 +21,10 @@ export default function ChatPage() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (agents.length === 0) fetchAgents().then(setAgents);
+    if (agents.length > 0) return;
+    fetchAgents()
+      .then(setAgents)
+      .catch(() => setAgents(FALLBACK_AGENTS));
   }, [agents.length, setAgents]);
 
   useEffect(() => {
@@ -152,7 +164,7 @@ export default function ChatPage() {
         <button
           onClick={send}
           disabled={loading}
-          className="px-5 py-3 rounded-xl bg-brand text-black font-semibold disabled:opacity-50"
+          className="px-5 py-3 rounded-xl bg-brand text-white font-semibold disabled:opacity-50"
         >
           Send
         </button>

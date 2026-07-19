@@ -32,13 +32,13 @@ export default function SustainDashboard() {
             type="number"
             value={distance}
             onChange={(e) => setDistance(Number(e.target.value))}
-            className="w-28 px-3 py-2 rounded-lg bg-ink-700 border border-white/10 outline-none focus:border-brand"
+            className="w-28 px-3 py-2 rounded-lg bg-white text-black border border-white/10 outline-none focus:border-brand"
           />
           <span className="self-center text-white/50 text-sm">km</span>
           <select
             value={mode}
             onChange={(e) => setMode(e.target.value)}
-            className="flex-1 px-3 py-2 rounded-lg bg-ink-700 border border-white/10 outline-none focus:border-brand"
+            className="flex-1 px-3 py-2 rounded-lg bg-white text-black border border-white/10 outline-none focus:border-brand"
           >
             <option value="car">🚗 Car</option>
             <option value="bus">🚌 Bus</option>

@@ -13,13 +13,14 @@ const icon = L.icon({
   iconAnchor: [12, 41],
 });
 
-const LUSAIL: [number, number] = [25.421, 51.489];
-
-const GATES = [
-  { name: "Gate A (North)", pos: [25.4235, 51.489] as [number, number], level: 72 },
-  { name: "Gate B (East)", pos: [25.421, 51.4915] as [number, number], level: 38 },
-  { name: "Gate C (West)", pos: [25.421, 51.4865] as [number, number], level: 81 },
-  { name: "Gate D (South · accessible)", pos: [25.4185, 51.489] as [number, number], level: 25 },
+// Real FIFA World Cup 2026 venues (USA / Mexico / Canada)
+const VENUES: { name: string; city: string; pos: [number, number]; level: number }[] = [
+  { name: "MetLife Stadium (Final)", city: "East Rutherford, NJ", pos: [40.8135, -74.0745], level: 81 },
+  { name: "AT&T Stadium (9 matches)", city: "Arlington, TX", pos: [32.7473, -97.0945], level: 72 },
+  { name: "Estadio Azteca (Opening)", city: "Mexico City", pos: [19.3029, -99.1505], level: 65 },
+  { name: "SoFi Stadium", city: "Inglewood, CA", pos: [33.9535, -118.3393], level: 48 },
+  { name: "BC Place", city: "Vancouver, BC", pos: [49.2768, -123.1119], level: 30 },
+  { name: "BMO Field", city: "Toronto, ON", pos: [43.6325, -79.4185], level: 25 },
 ];
 
 function color(l: number) {
@@ -30,27 +31,34 @@ function color(l: number) {
 
 export default function StadiumMap() {
   return (
-    <MapContainer center={LUSAIL} zoom={16} style={{ height: "70vh", width: "100%" }}>
+    <MapContainer center={[37, -95]} zoom={4} style={{ height: "70vh", width: "100%" }}>
       <TileLayer
-        attribution='&copy; OpenStreetMap contributors'
+        attribution="&copy; OpenStreetMap contributors"
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={LUSAIL} icon={icon}>
-        <Popup>Lusail Stadium — capacity 88,966</Popup>
-      </Marker>
-      {GATES.map((g) => (
-        <Circle
-          key={g.name}
-          center={g.pos}
-          radius={40}
-          pathOptions={{ color: color(g.level), fillColor: color(g.level), fillOpacity: 0.4 }}
-        >
-          <Popup>
-            <b>{g.name}</b>
-            <br />
-            Congestion: {g.level}% (simulated)
-          </Popup>
-        </Circle>
+      {VENUES.map((v) => (
+        <div key={v.name}>
+          <Marker position={v.pos} icon={icon}>
+            <Popup>
+              <b>{v.name}</b>
+              <br />
+              {v.city}
+            </Popup>
+          </Marker>
+          <Circle
+            center={v.pos}
+            radius={6000}
+            pathOptions={{ color: color(v.level), fillColor: color(v.level), fillOpacity: 0.35 }}
+          >
+            <Popup>
+              <b>{v.name}</b>
+              <br />
+              {v.city}
+              <br />
+              Pressure: {v.level}% (simulated)
+            </Popup>
+          </Circle>
+        </div>
       ))}
     </MapContainer>
   );

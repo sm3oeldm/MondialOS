@@ -3,12 +3,12 @@
 import { motion } from "framer-motion";
 
 const ITINERARY = [
-  { time: "14:00", title: "Check-in at hotel (near Lusail)", icon: "🏨", note: "Drop bags, grab metro card" },
-  { time: "15:30", title: "Souq district food tour", icon: "🍢", note: "Local cuisine, 20 min by metro" },
-  { time: "17:00", title: "Stadium shuttle to Gate D", icon: "🚌", note: "Free with match ticket" },
+  { time: "14:00", title: "Check-in at hotel (near SoFi Stadium)", icon: "🏨", note: "Drop bags, grab transit pass" },
+  { time: "15:30", title: "LA food tour & fan zone", icon: "🍢", note: "Local cuisine, short Metro ride" },
+  { time: "17:00", title: "Stadium shuttle to match", icon: "🚌", note: "Free with match ticket" },
   { time: "18:00", title: "Fan zone & security screening", icon: "🎟️", note: "Gates open 3h before kickoff" },
-  { time: "20:00", title: "Morocco vs Portugal — Final", icon: "⚽", note: "Seat Block 12, Gate D access" },
-  { time: "22:30", title: "Post-match metro (extended hrs)", icon: "🚇", note: "Runs until 02:00" },
+  { time: "20:00", title: "USA vs Group A — Matchday", icon: "⚽", note: "Seat Block 12, accessible entry" },
+  { time: "22:30", title: "Post-match Metro (extended hrs)", icon: "🚇", note: "Runs late on matchdays" },
 ];
 
 export default function FanDashboard() {
@@ -18,8 +18,8 @@ export default function FanDashboard() {
         Fan Dashboard
       </motion.h1>
       <p className="text-white/50 mt-2">
-        Personalized for <span className="text-brand-glow">Morocco</span> supporter · Hotel near
-        Lusail · Budget: moderate
+        Personalized for <span className="text-brand-glow">USA</span> supporter · Hotel near
+        SoFi Stadium (LA) · Budget: moderate
       </p>
 
       <div className="mt-8 space-y-3">

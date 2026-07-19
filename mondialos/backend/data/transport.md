@@ -1,14 +1,19 @@
-# Public Transport Guide
+# Public Transport — FIFA World Cup 2026
 
-The host cities operate expanded metro and shuttle services during the World Cup.
+Each host city operates expanded transit during the tournament.
 
-- Metro: Runs from 05:00 to 02:00 on match days. Expect 15-minute frequency.
-- Stadium shuttles: Free with match ticket, depart from central hubs every 10 min.
-- Ride-share: Surge pricing applies 2 hours before and after matches.
-- Walking: Pedestrian corridors with shade canopies connect transit to Gate D.
+- USA venues: Most connect to metro/rail — MARTA (Atlanta), SEPTA (Philly),
+  Link Light Rail (Seattle), Metro Rail (Houston), Inglewood connector (LA).
+- Mexico venues: Mexico City Metro + Tren Liga (Guadalajara) serve the
+  Estadio Azteca and Estadio Akron. Monterrey Metro reaches Estadio BBVA.
+- Canada venues: Toronto (TTC/GO) and Vancouver (SkyTrain) connect to BMO Field
+  and BC Place.
+- Stadium shuttles: Free with match ticket, departing from central transit hubs.
+- Ride-share: Surge pricing applies 2 hours before/after matches.
+- Cross-border travel between host countries is by air (no high-speed rail
+  connects the three nations) — book early.
 
 # Sustainable Travel
-
-- Train is the lowest-carbon option for inter-city travel.
-- Within the host city, metro + shuttle produces ~75% less CO2 than a private car.
-- Bike-share docks are located at every metro station near stadiums.
+- Within a host city, metro + shuttle produces far less CO2 than a private car.
+- Bike-share and walkable transit connections exist at most urban venues.
+- Choose public transit to cut per-fan emissions dramatically on match days.

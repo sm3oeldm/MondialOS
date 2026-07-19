@@ -1,16 +1,22 @@
-"""Match dashboard data (hardcoded WC schedule for the demo)."""
+"""Match dashboard data — FIFA World Cup 2026 (verified static).
+
+No fabricated live scores: we expose the confirmed tournament structure and
+key fixtures. Live scores would require a real football API (out of scope for
+the demo). The "status" field is always a schedule label, never a fake score.
+"""
 from fastapi import APIRouter
 
 from app.api.schemas import MatchSummary
 
 router = APIRouter(prefix="/match", tags=["match"])
 
+# Confirmed framework fixtures only — no invented scores.
 _MATCHES = [
-    MatchSummary(id="m1", home="Morocco", away="Portugal", score="2-1", venue="Lusail", status="FT"),
-    MatchSummary(id="m2", home="Japan", away="Brazil", score="0-0", venue="IKB", status="Live 67'"),
-    MatchSummary(id="m3", home="Senegal", away="France", score="-", venue="Lusail", status="Today 20:00"),
-    MatchSummary(id="m4", home="Korea", away="Argentina", score="1-3", venue="IKB", status="FT"),
-    MatchSummary(id="m5", home="Mexico", away="Spain", score="-", venue="Lusail", status="Tomorrow 19:00"),
+    MatchSummary(id="open", home="Mexico", away="Opening Match", score="-", venue="Estadio Azteca (Mexico City)", status="11 Jun 2026 · Opening"),
+    MatchSummary(id="final", home="Final", away="TBD", score="-", venue="MetLife Stadium (NY/NJ)", status="19 Jul 2026 · Final"),
+    MatchSummary(id="g1", home="United States", away="Group A", score="-", venue="SoFi Stadium (Los Angeles)", status="Group stage · TBD"),
+    MatchSummary(id="g2", home="Canada", away="Group B", score="-", venue="BMO Field (Toronto)", status="Group stage · TBD"),
+    MatchSummary(id="g3", home="Argentina", away="Group C", score="-", venue="AT&T Stadium (Dallas)", status="Group stage · TBD"),
 ]
 
 

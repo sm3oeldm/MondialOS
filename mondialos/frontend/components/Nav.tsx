@@ -12,6 +12,8 @@ const LINKS = [
   { href: "/dashboard/crowd", label: "Crowd" },
   { href: "/dashboard/sustain", label: "Green" },
   { href: "/dashboard/map", label: "Map" },
+  { href: "/dashboard/groups", label: "Groups" },
+  { href: "/dashboard/memes", label: "Memes" },
 ];
 
 export function Nav() {
