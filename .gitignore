@@ -1,0 +1,17 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+
+# Dependencies
+node_modules/
+__pycache__/
+.env
+.venv/
+venv/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
